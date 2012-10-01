@@ -1,9 +1,55 @@
 <project name="romaniser" default="compile">
-	<property name="build.dir" location="build"></property>
-	<property name="classes.dir" location="${build.dir}/deploy/classes"></property>
+	<property name="build.dir" location="build">
+	</property>
+	<property name="classes.dir" location="${build.dir}/deploy/classes">
+	</property>
+	<property name="test.dir" location="${build.dir}/test/classes">
+	</property>
+	<property name="report.dir" location="testreports" />
 
-	<target name="compile" description="compile Java code" >
-		<mkdir dir="${classes.dir}"/>
-		<javac srcdir="src" destdir="${classes.dir}"></javac>
+	<target name="compile" description="compile Java code">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="src" destdir="${classes.dir}">
+		</javac>
+	</target>
+
+	<path id="lib.classpath">
+		<fileset dir="." includes="**/*.jar" excludes="**/*.src" />
+	</path>
+
+	<target name="compile-unit-tests" description="compile unit tests">
+		<mkdir dir="${test.dir}" />
+		<javac srcdir="test/test" destdir="${test.dir}">
+			<classpath>
+				<path refid="lib.classpath" />
+				<path path="${classes.dir}" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="run-unit-tests" depends="compile-unit-tests" description="run unit tests">
+		<delete dir ="${report.dir}" />
+		<mkdir dir = "${report.dir}"/>
+		<junit haltonerror="true" printsummary="yes">
+			<formatter type="xml" />
+			<classpath>
+				<path refid="lib.classpath" />
+				<path path="${classes.dir}" />
+				<path path="${test.dir}" />
+			</classpath>
+			<batchtest fork="yes" todir="${report.dir}">
+				<fileset dir="test">
+					<include name="**/*Test.java" />
+
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+	
+	<target name = "junit-report" depends = "run-unit-tests" description = "run da unit test">
+	<junitreport todir = "${report.dir}">
+		<fileset dir = "${report.dir}" includes = "TEST-*.xml"/>
+	<report todir = "${report.dir}"/>	
+	</junitreport>
 	</target>
 </project>
