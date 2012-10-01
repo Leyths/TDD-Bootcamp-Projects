@@ -1,0 +1,9 @@
+<project name="romaniser" default="compile">
+	<property name="build.dir" location="build"></property>
+	<property name="classes.dir" location="${build.dir}/deploy/classes"></property>
+
+	<target name="compile" description="compile Java code" >
+		<mkdir dir="${classes.dir}"/>
+		<javac srcdir="src" destdir="${classes.dir}"></javac>
+	</target>
+</project>
