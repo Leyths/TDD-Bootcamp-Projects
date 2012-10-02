@@ -24,6 +24,7 @@ public class DrawHistoryTest extends TestCase {
 		}
 	}
 	
+	@Test
 	public void testReturnPrizeValues() {
 		Draw draw = drawHistory.getDraw(new Date());
 		assertEquals(0, draw.getPrizeValue(0));

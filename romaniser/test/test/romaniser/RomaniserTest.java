@@ -46,9 +46,10 @@ public class RomaniserTest extends TestCase{
 	
 	@Test public void testSubNumeral()
 	{
-		assertEquals("X", romaniser.getSubNumeral(1, 10));
-		assertEquals("XL", romaniser.getSubNumeral(4, 10));
-		assertEquals("V", romaniser.getSubNumeral(5, 1));
+		assertEquals("X", romaniser.getSubNumeral(1, 1));
+		assertEquals("XL", romaniser.getSubNumeral(4, 1));
+		assertEquals("V", romaniser.getSubNumeral(5, 0));
+		assertEquals("LXXX", romaniser.getSubNumeral(8, 1));
 	}
 	
 //	@Test public void testCenturies()
