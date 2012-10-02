@@ -4,9 +4,7 @@ import java.util.Date;
 import org.junit.Test;
 
 import junit.framework.TestCase;
-import lotterychecker.Draw;
 import lotterychecker.DrawChecker;
-import lotterychecker.DrawHistory;
 
 public class DrawCheckerTest extends TestCase {
 
@@ -21,7 +19,6 @@ public class DrawCheckerTest extends TestCase {
 	
 	@Test
 	public void testPrizeAmount() {
-		Integer[] prizeValues = {0, 0, 0, 430000, 10, 1000000000, 39407};
 		assertEquals(430000, check.prizeAmount(3, new Date()));
 		assertEquals(0, check.prizeAmount(0, new Date()));
 		assertEquals(39407, check.prizeAmount(6, new Date()));
