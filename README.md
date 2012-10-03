@@ -11,3 +11,7 @@ LotteryCheck (Incomplete)
 ------------
 
 This is incomplete as was used primarily as a way of specifying tests for interfaces and not complete classes. Is supposed to specify an interface for taking data from a 3rd party source and checking if a given set of numbers+date would give the holder a prize.
+
+MobileBilling
+-------------
+Exercise to simulate cross-team communication.
