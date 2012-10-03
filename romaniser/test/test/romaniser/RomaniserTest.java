@@ -50,10 +50,18 @@ public class RomaniserTest extends TestCase{
 		assertEquals("XL", romaniser.getSubNumeral(4, 1));
 		assertEquals("V", romaniser.getSubNumeral(5, 0));
 		assertEquals("LXXX", romaniser.getSubNumeral(8, 1));
+		assertEquals("C", romaniser.getSubNumeral(100, 0));
+		assertEquals("M", romaniser.getSubNumeral(1000, 0));
+		assertEquals("D", romaniser.getSubNumeral(500, 0));
 	}
 	
-//	@Test public void testCenturies()
-//	{
-//		assertEquals("C", romaniser.romanise(100));
-//	}
+	@Test public void testCenturies()
+	{
+		assertEquals("C", romaniser.romanise(100));
+		assertEquals("D", romaniser.romanise(500));
+		assertEquals("M", romaniser.romanise(1000));
+		assertEquals("DCCCXC", romaniser.romanise(890));
+		assertEquals("MDCCC", romaniser.romanise(1800));
+		assertEquals("DCCVII", romaniser.romanise(707));
+	}
 }

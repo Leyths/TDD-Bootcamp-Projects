@@ -1,11 +1,9 @@
-<project name="romaniser" default="compile">
-	<property name="build.dir" location="build">
-	</property>
-	<property name="classes.dir" location="${build.dir}/deploy/classes">
-	</property>
-	<property name="test.dir" location="${build.dir}/test/classes">
-	</property>
+<project name="romaniser" default="jar">
+	<property name="build.dir" location="build"/>
+	<property name="classes.dir" location="${build.dir}/deploy/classes"/>
+	<property name="test.dir" location="${build.dir}/test/classes"/>
 	<property name="report.dir" location="testreports" />
+	<property name="dist.dir" location="dist" />
 
 	<target name="compile" description="compile Java code">
 		<mkdir dir="${classes.dir}" />
@@ -17,7 +15,7 @@
 		<fileset dir="." includes="**/*.jar" excludes="**/*.src" />
 	</path>
 
-	<target name="compile-unit-tests" description="compile unit tests">
+	<target name="compile-unit-tests" depends="compile" description="compile unit tests">
 		<mkdir dir="${test.dir}" />
 		<javac srcdir="test/test" destdir="${test.dir}">
 			<classpath>
@@ -51,5 +49,14 @@
 		<fileset dir = "${report.dir}" includes = "TEST-*.xml"/>
 	<report todir = "${report.dir}"/>	
 	</junitreport>
+	</target>
+	
+	<target name="jar" depends="junit-report" description="create jar file">
+		<mkdir dir="${dist.dir}"/>
+		<jar destfile="${dist.dir}/romaniser.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="romaniser.Romaniser"/>
+			</manifest>
+		</jar>
 	</target>
 </project>

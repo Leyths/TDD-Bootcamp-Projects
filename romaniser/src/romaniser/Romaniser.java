@@ -4,8 +4,15 @@ import java.util.HashMap;
 
 public class Romaniser {
 	
-	private static Integer[] baseArabic = {0, 1, 5, 10, 50, 100, 500, 1000};
-	private static String[] baseRoman = {"", "I", "V", "X", "L", "C", "D", "M"};
+	private static Integer[] baseArabic = {0,   1,   5,   10,  50,  100, 500, 1000};
+	private static String[] baseRoman =   {"", "I", "V", "X", "L", "C",  "D", "M"};
+	
+	public static void main(String[] args)
+	{
+		Romaniser r = new Romaniser();
+		for(int i=0; i<=500; i++)
+			System.out.println(i+" | "+r.romanise(i));
+	}
 
 	
 	/**
@@ -45,17 +52,12 @@ public class Romaniser {
 	
 	public String romanise(int number) {
 		System.out.println("Romanising "+number);
-		String roman = getSubNumeral(number%10, 0);
-		int i = 1;
-		int reducedArabic = (int) Math.floor(number/(Math.pow(10, i)));
-		while(reducedArabic!=0)
+		String roman = "";
+		String convertedNum = ((Integer)number).toString();
+		for(int i=0; i<convertedNum.length(); i++)
 		{
-			System.out.println(number+" "+reducedArabic);
-			reducedArabic = (int) Math.floor(number/(Math.pow(10, i)));
-			roman = getSubNumeral(reducedArabic, i)+roman;
-			i++;
+			roman = getSubNumeral(Integer.parseInt(((Character)convertedNum.charAt(convertedNum.length()-i-1)).toString()), i)+roman;
 		}
-		
 		return roman;
 	}
 
