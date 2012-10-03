@@ -39,7 +39,7 @@ public class CallRater implements CallRatingInterface{
 			callRate = chargeBandRates.get(band);
 		}
 		
-		if (call.getType() == 634)
+		if (call.getType() == Call.TYPE_REVERSEDIAL)
 			callRate *= reverseCallFactor;
 		
 		return minutes * callRate;
