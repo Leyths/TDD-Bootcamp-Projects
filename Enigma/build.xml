@@ -1,0 +1,92 @@
+<project name="engima" default="compile">
+	<property name="build.dir" location="build"/>
+	<property name="classes.dir" location="${build.dir}/deploy/classes"/>
+	<property name="unit-test.dir" location="${build.dir}/unit-test/classes"/>
+	<property name="end-to-end-test.dir" location="${build.dir}/end-to-end-test/classes"/>
+	<property name="report.dir" location="testreports" />
+	<property name="dist.dir" location="dist" />
+
+	<target name="compile" description="compile Java code">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="src" destdir="${classes.dir}">
+		</javac>
+	</target>
+
+	<path id="lib.classpath">
+		<fileset dir="." includes="**/*.jar" excludes="**/*.src" />
+	</path>
+
+	<target name="compile-unit-tests" depends="compile" description="compile unit tests">
+		<mkdir dir="${unit-test.dir}" />
+		<javac srcdir="unit-test" destdir="${unit-test.dir}">
+			<classpath>
+				<path refid="lib.classpath" />
+				<path path="${classes.dir}" />
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="compile-end-to-end-tests" depends="compile" description="compile end-to-end tests">
+		<mkdir dir="${end-to-end-test.dir}" />
+		<javac srcdir="end-to-end-test" destdir="${end-to-end-test.dir}">
+			<classpath>
+				<path refid="lib.classpath" />
+				<path path="${classes.dir}" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="run-unit-tests" depends="compile-unit-tests, compile" description="run unit tests">
+		<delete dir ="${report.dir}" />
+		<mkdir dir = "${report.dir}"/>
+		<junit haltonerror="true" printsummary="yes">
+			<formatter type="xml" />
+			<classpath>
+				<path refid="lib.classpath" />
+				<path path="${classes.dir}" />
+				<path path="${unit-test.dir}" />
+			</classpath>
+			<batchtest fork="yes" todir="${report.dir}">
+				<fileset dir="unit-test">
+					<include name="**/*Test.java" />
+
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+	
+	<target name="run-end-to-end-tests" depends="compile-end-to-end-tests, compile" description="run unit tests">
+		<delete dir ="${report.dir}" />
+		<mkdir dir = "${report.dir}"/>
+		<junit haltonerror="true" printsummary="yes">
+			<formatter type="xml" />
+			<classpath>
+				<path refid="lib.classpath" />
+				<path path="${classes.dir}" />
+				<path path="${end-to-end-test.dir}" />
+			</classpath>
+			<batchtest fork="yes" todir="${report.dir}">
+				<fileset dir="end-to-end-test">
+					<include name="**/*Test.java" />
+
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+	
+	<target name = "junit-report" depends = "run-unit-tests, run-end-to-end-tests, compile" description = "run da unit test">
+	<junitreport todir = "${report.dir}">
+		<fileset dir = "${report.dir}" includes = "TEST-*.xml"/>
+	<report todir = "${report.dir}"/>	
+	</junitreport>
+	</target>
+	
+	<!--target name="jar" depends="junit-report" description="create jar file">
+		<mkdir dir="${dist.dir}"/>
+		<jar destfile="${dist.dir}/enigma.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="romaniser.Romaniser"/>
+			</manifest>
+		</jar>
+	</target-->
+</project>
