@@ -16,17 +16,25 @@ public class Rotor {
 	public char codeInput(char inputchar) {
 		int offset = position - 'A';
 		int charIndexInAlphabet = RotorType.ALPHABET.map().indexOf(inputchar);
+		int charIndexShifted = (charIndexInAlphabet + offset) % 26;
 		
-		int offsettedPosition = (charIndexInAlphabet - offset) % 26;
+		int charInputTemp = type.map().charAt(charIndexShifted);
+		
+		int offsettedPosition = (RotorType.ALPHABET.map().indexOf(charInputTemp) - offset) % 26;
 		if (offsettedPosition < 0)
 			offsettedPosition += 26;
 
-		return type.map().charAt(offsettedPosition);
+		return RotorType.ALPHABET.map().charAt(offsettedPosition);
 	}
 	
-	public char codeOutput(char inputchar) {
+	public char codeOutput(char inputchar) { 
 		int offset = position - 'A';
-		int charIndexInMap = type.map().indexOf(inputchar);
+		int positionInAlphabet = inputchar - 'A';
+		int rotatedInputCharPosition = (positionInAlphabet + offset) % 26;
+			if (rotatedInputCharPosition < 0)
+				rotatedInputCharPosition += 26;
+		char character = RotorType.ALPHABET.map().charAt(rotatedInputCharPosition);
+		int charIndexInMap = type.map().indexOf(character);
 		
 		int offsettedPosition = (charIndexInMap - offset) % 26;
 		if (offsettedPosition < 0)
@@ -35,9 +43,9 @@ public class Rotor {
 		return RotorType.ALPHABET.map().charAt(offsettedPosition);
 	}
 	
-	private void incrementRotor()
+	public void incrementRotor()
 	{
-		
+		position++;
 	}
 
 }

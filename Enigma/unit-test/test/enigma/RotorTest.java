@@ -38,9 +38,16 @@ public class RotorTest {
 	}
 	
 	@Test
-	public void testRotorIIMapsGToXInPositionY() {
+	public void testRotorIIMapsCToDInPositionA() {
 		Rotor rotor = new Rotor(RotorType.II);
-		rotor.setPosition('Y');
-		assertEquals(String.valueOf('X'), String.valueOf(rotor.codeInput('G')));
+		rotor.setPosition('A');
+		assertEquals(String.valueOf('D'), String.valueOf(rotor.codeInput('C')));
+	}
+	
+	@Test
+	public void testRotorIIIMapsABackToXInPositionB() {
+		Rotor rotor = new Rotor(RotorType.III);
+		rotor.setPosition('B');
+		assertEquals(String.valueOf('Z'), String.valueOf(rotor.codeOutput('A')));
 	}
 }

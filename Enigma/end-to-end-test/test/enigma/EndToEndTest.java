@@ -10,6 +10,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import enigma.Enigma;
+import enigma.Reflector;
+import enigma.ReflectorType;
+import enigma.Rotor;
+import enigma.RotorType;
 
 
 
@@ -18,8 +22,12 @@ public class EndToEndTest {
 	
 	@Test
 	public void encryptsInput() {
-		Enigma wermachtStandard = new Enigma(lamps);
-		assertConverts(wermachtStandard, "Hello world",/*"ILBDAAMTAZ"*/ "HELLOWORLD");
+		Enigma wermachtStandard = new Enigma(lamps, 
+				new Reflector(ReflectorType.B), 
+				new Rotor(RotorType.I), 
+				new Rotor(RotorType.II), 
+				new Rotor(RotorType.III));
+		assertConverts(wermachtStandard, "Hello world", "ILBDAAMTAZ");
 	}
 	
 	private void assertConverts(Enigma enigma, String inputString,

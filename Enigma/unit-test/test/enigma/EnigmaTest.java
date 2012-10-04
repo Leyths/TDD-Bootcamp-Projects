@@ -15,7 +15,7 @@ public class EnigmaTest {
 	public void testIdentityReflectorReflectsAToAWithRotorIinPositionA() {
 		Rotor rotor = new Rotor(RotorType.I);
 		Reflector reflector = new Reflector(ReflectorType.ALPHABET);
-		rotor.setPosition('A');
+		rotor.setPosition('B');
 		
 		char output = rotor.codeInput('A');
 		System.out.println(output);
